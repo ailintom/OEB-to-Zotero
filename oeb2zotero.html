@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en">
+    <head>
+        <title>OEB to Zotero</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                background: #555;
+                font-family:Helvetica, Arial, sans-serif;font-size:14px;
+            }
+            .content {
+                max-width: 1024px;
+                margin: auto;
+                background: white;
+                padding: 10px;
+            }
+            .small {
+                max-width: 1024px;
+                margin: auto;
+                background: white;
+                padding: 10px;
+                font-family:Helvetica, Arial, sans-serif;font-size:10px;
+            }
+            .button{
+                border-width: 1px;
+                margin: 0 auto;
+                border-style:solid;
+                -moz-border-radius: 4px;
+                -webkit-border-radius: 4px;
+                border-radius: 4px;
+                background-color:#ff0000;
+                text-align:center;
+                color: #fff;
+                font-weight:bold;
+                border-color: #ff0000;
+                border-radius: 4px;
+                padding:4px 8px;
+                text-decoration:none;
+                white-space: nowrap;
+            </style>
+        </head>
+        <body>
+            <div class="content">
+                <p>The OEB to Zotero bookmarklet is designed to facilitate the import of bibliographical records from the <a href="http://oeb.griffith.ox.ac.uk/">Online Egyptological Bibliography</a> (requires subscription) to personal reference managers such as Zotero and Endnote. </p>
+                <p>The bookmarklet builds upon the OEB export function and aims to solve several problems: 
+                    a) that the series number in OEB exports is not recognised by Zotero and Endnote because of a custom variety of the RIS format used in these programs; 
+                    b) that records for articles in edited volumes exported from the OEB do not contain a series title and series number; 
+                    c) that records from the OEB have an extra dot after the title;
+                    d) records imported from OEB have the value 'OEB' in the Zotero field Archive, which shows up in some citation styles. Besides, the bookmarklet aims to additionally provide short titles for items.</p>
+                <p>To install the OEB to Zotero bookmarklet, click on the button below and drag it to your browser’s bookmarks bar (also called 'favourites bar' in some browsers).</p>
+                <p><a class="button" href='javascript:void%20function(){function%20a(a){window.navigator.msSaveOrOpenBlob%3F(blob=new%20Blob([a],{type:%22application/x-research-info-systems%22}),window.navigator.msSaveOrOpenBlob(blob,%22oebexport.ris%22)):window.open(%22data:application/x-research-info-systems;%20charset=UTF-8,%20%22+encodeURI(a))}var%20b=window.location.href,c=/^.*oeb_entry.aspx\%3F(%3F:item|parent)=(\d+).*/;if(c.test(b)){var%20d,e,f=b.replace(c,%22/ReferenceExport.aspx%3Fid=$1%22),g=new%20XMLHttpRequest,h=new%20XMLHttpRequest;g.onreadystatechange=function(){if(4===g.readyState%26%26200===g.status%26%26g.responseText){var%20b=/(^TI%20%20.*)[.]($)/gm,c=g.responseText.replace(b,%22$1$2%22);if(c=c.replace(/(^TI)(%20%20.*%3F):(.*$)/gm,%22$1$2:$3\r\nST$2%22),c=c.replace(/(^N2)(%20%20-.*$)/gm,%22N1$2%22),c=c.replace(/(^DB%20%20-.*\r\n)/gm,%22%22),(0%3C=c.indexOf(%22TY%20%20-%20Book%22)||0%3C=c.indexOf(%22TY%20%20-%20EdBook%22))%26%26(d=c.lastIndexOf(%22VL%20%20-%22),0%3C=d%26%26(c=c.substring(0,d)+%22M1%20%20-%22+c.substring(d+5))),0%3C=c.indexOf(%22TY%20%20-%20Chap%22)){var%20i=/x\%3Fparent=(.*%3F)%22%3E/gm,j=i.exec(document.body.innerHTML)[0];f=%22/ReferenceExport.aspx%3Fid=%22+j.substr(9,j.length-11),h.onreadystatechange=function(){if(4===h.readyState%26%26200===h.status){if(h.responseText){var%20b=h.responseText;if(i=/T2\s\s-\s(.*%3F)\r/gm,j=i.exec(b),null!==j){var%20f=j[0];c=c.replace(%22\r\nER%22,%22\r\nT3%20%20-%20%22+f.substr(6,f.length-7)+%22%20\r\nER%22)}d=b.lastIndexOf(%22VL%20%20-%22),0%3C=d%26%26(e=b.indexOf(%22\r\n%22,d+1),c=c.replace(%22\r\nER%22,%22\r\nSV%20%20-%20%22+b.substring(d+5,e)+%22%20\r\nER%22))}a(c)}},h.open(%22GET%22,f,!0),h.send(null)}else%20a(c)}},g.open(%22GET%22,f,!0),g.send(null)}}();'>OEB to Zotero</a> version 1.3 (15/10/2021)</p>
+                <p>To use the bookmarklet, open a single bibliographical entry in the OEB (by clicking on the OEB ##### link above the triangle marking each entry) and then click on the OEB to Zotero link on your browser’s bookmarks bar. The browser will then download the .ris file, which you can open in your desktop reference manager. Browsers can be set up to automatically open .ris files in the program of your choice after downloading.</p>
+                <p>Please note that at first use your browser may block the pop-up window containing the file and instead of downloading the file it would display a message that pop-ups are blocked. In this case you should unblock the popup windows for oeb.griffith.ox.ac.uk and try again. </p>
+				<p>If Zotero does not open downloaded files on a Windows computer, you may need to edit the Windows registry so that the RIS MIME type is associated with the .ris extension. To this end you may create the string value <code>"Extension"=".ris"</code> under the key <code>[HKEY_CLASSES_ROOT\MIME\Database\Content Type\application/x-research-info-systems]</code>. You may do this with <a href="ZoteroRIS.reg">this reg file</a> (just download and run it).</p>
+                <p>The tool was tested to work in Firefox 93, Chrome 94, Edge 94,  and Internet Explorer 11 on Windows in combination with Zotero 5.0.96.3, Endnote X8, and Citavi 5.6.0.2, but it should work with other browsers and operating systems as well. Negative results were obtained when testing the tool with Mendeley 1.17.10 (which does not at all support series titles and numbers and is thus of no use for Egyptologists) and Jabref 3.8.2 (which incorrectly imports RIS files from the OEB).</p>
+            </div>
+            <div class="small">
+                <p>Impressum</p><p>Alexander Ilin-Tomich<br>Institut für Altertumswissenschaften, Ägyptologie<br>FB 07, Johannes Gutenberg-Universität Mainz<br>D - 55099 Mainz, Deutschland<br>Tel.: +4961313938345<br>E-Mail: ilintomich@gmail.com</p>
+            </div>
+        </body>
+    </html>
